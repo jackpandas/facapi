@@ -1,8 +1,24 @@
-body {
-  font-family:"sans-serif"
+* {
+  padding:0;
+  margin:0;
 }
 
-#heading {
-  text-transform:uppercase;
-  
+body {
+  font-family:"sans-serif";
+}
+
+button {
+  height:10vw;
+  width:33.33%;
+  float:left;
+  outline: 1px solid black;
+}
+
+#header {
+  background-image: url("images/Instacognito-logo.png");
+  background-size: 90%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 20vw;
+  width: 100%;
 }
