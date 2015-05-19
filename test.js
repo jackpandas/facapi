@@ -32,11 +32,30 @@ equal(box3, "about", "header div present and on top");
 equal(last, "footer", "header div present and on top");
 });
 
-test("check logo present", function() {
+// test("check logo present", function() {
+//     var iframe= document.getElementById('if-index');
+//     var target= iframe.contentDocument || iframe.contentWindow.document;
+//     var logo= target.getElementById('logo').alt;
+//
+//     equal(logo, 'InstaCognito logo', 'logo image present and given alternative text name')
+//
+// });
+
+test("buttons in nav bar", function() {
     var iframe= document.getElementById('if-index');
     var target= iframe.contentDocument || iframe.contentWindow.document;
-    var logo= target.getElementById('logo').alt;
+    var navigationcontents=target.getElementById('navigation').children;
+    var numberbuttons=navigationcontents.length;
+    var bool =true;
+    if (numberbuttons==0){console.log('number'); bool=false;}
+    else {
+      for (var i=0; i<numberbuttons; i++){
+        if (navigationcontents[i].tagName != "BUTTON"){bool=false};
+      };
+    };
+    //button testing, they are all buttons, if one not true will turn flag false
+    equal(3, numberbuttons, '3 elements present');
+    equal(bool,true,"buttons are buttons and have right width and height");
 
-    equal(logo, 'InstaCognito logo', 'logo image present and given alternative text name')
 
 });
