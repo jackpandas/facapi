@@ -2,5 +2,10 @@ doctype
 html
   head
     link(rel="stylesheet" href="/main.css")
+    link(rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.18.0.css")
   body
+    != partial("_header")
     != yield
+    != partial("_footer")
+    != partial("_testmod")
+    
