@@ -7,4 +7,4 @@ Branches:
 - mac (Jack M)
 - rans (Jack R)
 - abdi (Abdi)
-- lucas (Lucas)
+- lukas (Lukars)
