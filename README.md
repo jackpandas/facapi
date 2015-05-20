@@ -35,7 +35,7 @@ Using the basic API functionality, the project will use javascript to call the I
 
 ####Version 3
 
-The third iteration of the application adds the function to update the page, either by calling the API again for newer photos (REFRESH) or to seek older photos from the stream (MORE). In the REFRESH function, the API will be called (using the version 2 mode) and the new data will be compared to the existing data, at the staging array point, with any duplicate data being discarded. The new data will then be added to the domain above the existing data. In the MORE function, the version 2 API will be called using the NEXT URI function from the data in the array.  
+The third iteration of the application adds the function to update the page, either by calling the API again for newer photos (REFRESH) or to seek older photos from the stream (MORE). In the REFRESH function, the API will be called (using the version 2 mode) and the new data will be compared to the existing data, at the staging array point, with any duplicate data being discarded. The new data will then be added to the domain above the existing data. In the MORE function, the version 2 API will be called using the NEXT URI function from the data in the array. 
 
 ###Project Files
 
