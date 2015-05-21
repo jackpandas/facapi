@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>InstaCognito</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id='header'></div>
+  <div id='navigation'>
+    <button id='htbutton'>#hashtags</button>
+    <button id='ubutton'>Users</button>
+    <button id='abutton'>About</button>
+  </div>
+  <div id='hashtags'>
+    <form>
+      <input id="hashtag1" value="Enter hashtag" >
+      <input onclick="loadtag()" value="search" type="button">
+    </form>
+  </div>
+  <div id='users'>
+    <form>
+      <input id="user1" value="Enter user" >
+      <input onclick="loadUserArray()" value="search" type="button">
+    </form>
+  </div>
+  <div id='about'></div>
+  <div id='footer'></div>
+  <script src="addAccess.js"></script>
+</body>
+</html>
+
+<!-- <img id ='logo' src='images/Instacognito-logo.png' alt='InstaCognito logo' /> -->
