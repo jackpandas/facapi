@@ -1,5 +1,4 @@
 
-var accesstoken="1950502834.f8533ad.f19534465a0a41548b1d8efb80b0308f";
 
 var usersImageArray = []; // PUTINERHERHERHERHERHERHERHERHEHEHE
 
