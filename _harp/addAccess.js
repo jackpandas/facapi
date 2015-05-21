@@ -1,3 +1,49 @@
+//buttons!!!
+
+function buttonpress(open,hide1,hide2,openbutton,hidebutton1,hidebutton2) {
+    var show= document.getElementById(open);
+    var other1=document.getElementById(hide1);
+    var other2=document.getElementById(hide2);
+
+    show.style.display="block";
+    other1.style.display="none";
+    other2.style.display="none";
+
+    var buttonSelected=document.getElementById(openbutton);
+    buttonSelected.style.backgroundColor="#878787";
+    var notSelected1=document.getElementById(hidebutton1);
+    notSelected1.style.backgroundColor="white";
+    var notSelected2=document.getElementById(hidebutton2);
+    notSelected2.style.backgroundColor="white";
+
+
+
+
+};
+
+
+var htButton = document.getElementById("htbutton");
+htButton.addEventListener("click", function(){
+  buttonpress("hashtags","users","about","htbutton","abutton","ubutton")
+});
+
+var uButton = document.getElementById("ubutton");
+uButton.addEventListener("click", function(){
+  buttonpress("users","about","hashtags","ubutton","abutton","htbutton")
+});
+
+var aButton = document.getElementById("abutton");
+aButton.addEventListener("click", function(){
+  buttonpress("about","users","hashtags","abutton","ubutton","htbutton")
+});
+
+
+
+
+///buttons end!
+
+
+
 
 
 var usersImageArray = []; // PUTINERHERHERHERHERHERHERHERHEHEHE
@@ -32,7 +78,7 @@ function callbackFunction(dataReturned){
   var data=dataReturned;
   //console.log(dataReturned.data);
   for (var i=0;i<data.length;i++){
-    
+
     var content = data[i];
     var timestamp = content.caption.created_time;
     console.log(timestamp);
@@ -41,9 +87,9 @@ function callbackFunction(dataReturned){
     var title=document.createElement('p');
     var date=document.createElement('p');
     var image=document.createElement('img');
-    
+
     title.innerHTML=content.caption.text;
-    date.innerHTML=timestamp;   
+    date.innerHTML=timestamp;
 
     image.setAttribute('src', content.images.standard_resolution.url);
     image.setAttribute('alt', content.caption.text);
@@ -96,6 +142,7 @@ function callbackGetUser (dataReturned){
     // return userId;
 
 }
+
 
 
 //This function fills the usersImageArray with recent media
@@ -219,9 +266,5 @@ function sortbytime (array){
 //
 ////console.log(parseInt(usersImageArray[0].created_time))
 //
-
-
-
-
 
 
