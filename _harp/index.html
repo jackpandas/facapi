@@ -3,12 +3,14 @@
 <head>
   <meta charset="utf-8">
   <title>InstaCognito</title>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>    
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.18.0.css">    
   <link rel="stylesheet" href="main.css">
+    
 
 </head>
 <body>
     <script src="./ignore/token.js"></script>
-
   <div id='header'></div>
   <div id='navigation'>
     <button id='htbutton' class='selected'>#hashtags</button>
@@ -30,10 +32,18 @@
     </form>
   </div>
   <div id='about' class="main">
-    <p>ABOUT</p>
+    <h1>ABOUT</h1>
+      
   </div>
   <div id='footer'></div>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+    
+  <script src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
   <script src="addAccess.js"></script>
+  <script src="tests.js"></script>
+  
+    
 </body>
 </html>
 

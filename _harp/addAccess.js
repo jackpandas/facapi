@@ -5,7 +5,7 @@ function buttonpress(open,hide1,hide2,openbutton,hidebutton1,hidebutton2) {
     var other1=document.getElementById(hide1);
     var other2=document.getElementById(hide2);
 
-    show.style.display="block";
+    show.style.display="block"; 
     other1.style.display="none";
     other2.style.display="none";
 
