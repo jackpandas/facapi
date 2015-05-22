@@ -3,6 +3,18 @@
   margin:0;
 }
 
+#htbutton {
+  background-color:#878787;
+}
+
+#about, #users {
+  display:none;
+}
+
+#abutton,#ubutton {
+  background-color:white;
+}
+
 body {
   font-family:"sans-serif";
 }
@@ -21,4 +33,10 @@ button {
   background-repeat: no-repeat;
   height: 20vw;
   width: 100%;
+}
+
+.main {
+    height:300px;
+    width:100%;
+    outline:1px solid black;
 }

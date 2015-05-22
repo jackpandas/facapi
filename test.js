@@ -55,7 +55,7 @@ test("buttons in nav bar", function() {
     };
     //button testing, they are all buttons, if one not true will turn flag false
     equal(3, numberbuttons, '3 elements present');
-    equal(bool,true,"buttons are buttons and have right width and height");
+    equal(bool,true,"buttons are buttons");
 
 
 });
