@@ -1,5 +1,6 @@
 //buttons!!!
 
+
 function buttonpress(open,hide1,hide2,openbutton,hidebutton1,hidebutton2) {
     var show= document.getElementById(open);
     var other1=document.getElementById(hide1);
@@ -49,16 +50,16 @@ aButton.addEventListener("click", function(){
 //
 //
 //
-// function loadtag(){
-//   var tag = document.getElementById('hashtag1').value;
-//   // var section='hashtags';
-//   if (tag){//checking to see if empty
-//     var apiRequest= "https://api.instagram.com/v1/tags/" + tag + "/media/recent?access_token=" + accesstoken + "&callback=callbackFunction";
-//     var apiscript=document.createElement('script');
-//     apiscript.setAttribute('src', apiRequest);
-//     document.body.appendChild(apiscript);
-//   }//end if empty
-// };//end load
+ function loadtag(){
+   var tag = document.getElementById('hashtag1').value;
+   // var section='hashtags';
+   if (tag){//checking to see if empty
+     var apiRequest= "https://api.instagram.com/v1/tags/" + tag + "/media/recent?access_token=" + accesstoken + "&callback=callbackFunction";
+     var apiscript=document.createElement('script');
+     apiscript.setAttribute('src', apiRequest);
+     document.body.appendChild(apiscript);
+   }//end if empty
+ };//end load
 //
 //
 // function callbackFunction(dataReturned){
@@ -151,23 +152,26 @@ function displayinitalusers(usersImageArray) {
   for (var i=0;i<arrayByTime.length;i++){
   var imageobj = arrayByTime[i];
   var timestamp = imageobj.caption.created_time;
-
+  
   var div = document.createElement('div');
+  var author = document.createElement('p');
   var title=document.createElement('p');
   var date=document.createElement('p');
   var image=document.createElement('img');
 
   title.innerHTML=imageobj.caption.text;
   date.innerHTML=timestamp;
+  author.innerHTML=imageobj.user.username;
 
   image.setAttribute('src', imageobj.images.standard_resolution.url);
   image.setAttribute('alt', imageobj.caption.text);
 
-  div.appendChild(title);
-  div.appendChild(image);
-  div.appendChild(date);
+  div.appendChild(author).id = "author";
+  div.appendChild(image).id = "image";
+  div.appendChild(title).id = "caption";
+  //div.appendChild(date).id = "date";
 
-  document.getElementById("users").appendChild(div);////////// HEREREERERERERERE
+  document.getElementById("user-content").appendChild(div);////////// HEREREERERERERERE
   };
 };
 //!
