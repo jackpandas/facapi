@@ -46,20 +46,75 @@ aButton.addEventListener("click", function(){
 
 
 
-var usersImageArray = []; // PUTINERHERHERHERHERHERHERHERHEHEHE
+//
+//
+//
+// function loadtag(){
+//   var tag = document.getElementById('hashtag1').value;
+//   // var section='hashtags';
+//   if (tag){//checking to see if empty
+//     var apiRequest= "https://api.instagram.com/v1/tags/" + tag + "/media/recent?access_token=" + accesstoken + "&callback=callbackFunction";
+//     var apiscript=document.createElement('script');
+//     apiscript.setAttribute('src', apiRequest);
+//     document.body.appendChild(apiscript);
+//   }//end if empty
+// };//end load
+//
+//
+// function callbackFunction(dataReturned){
+//   var data=dataReturned;
+//   //console.log(dataReturned.data);
+//   for (var i=0;i<data.length;i++){
+//
+//     var content = data[i];
+//     var timestamp = content.caption.created_time;
+//     console.log(timestamp);
+//
+//     var div = document.createElement('div');
+//     var title=document.createElement('p');
+//     var date=document.createElement('p');
+//     var image=document.createElement('img');
+//
+//     title.innerHTML=content.caption.text;
+//     date.innerHTML=timestamp;
+//
+//     image.setAttribute('src', content.images.standard_resolution.url);
+//     image.setAttribute('alt', content.caption.text);
+//
+//     div.appendChild(title);
+//     div.appendChild(image);
+//     div.appendChild(date);
+//
+//     usersImageArray.append
+//     document.getElementById("hashtags").appendChild(div);////////// HEREREERERERERERE
+//   };
+// };
+//
 
 
+function loadUserArray(){
+var usersarray = ['jack.rans','taylorswift','kimkardashian','zooeydeschanel','jackpandas']; //currently hardcoded
 
-function loadtag(){
-  var tag = document.getElementById('hashtag1').value;
-  // var section='hashtags';
-  if (tag){//checking to see if empty
-    var apiRequest= "https://api.instagram.com/v1/tags/" + tag + "/media/recent?access_token=" + accesstoken + "&callback=callbackFunction";
-    var apiscript=document.createElement('script');
-    apiscript.setAttribute('src', apiRequest);
-    document.body.appendChild(apiscript);
-  }//end if empty
+  for (var j = 0; j< usersarray.length;j++){
+        var userEncoded = encodeURIComponent( usersarray[j] ); //may not be necessary, This is to ensure no errors on unknown characters in users names
+        var apiRequest= "https://api.instagram.com/v1/users/search?q=" + '"' + userEncoded + '"' + "&access_token=" + accesstoken + "&callback=callbackGetUser"; //sends api request of this user to seek out the user id as a number
+      // console.log(apiRequest);
+        var apiscript=document.createElement('script');
+        apiscript.setAttribute('src', apiRequest);
+        document.body.appendChild(apiscript); //appends to script to get info send to the callbackGetUser function
+  }
+    console.log(usersImageArray);
 };//end load
+
+
+function callbackGetUser (dataReturned){
+  var data=dataReturned.data;
+    // console.log(dataReturned.data);
+  var userId = data[0].id; // access the user_id (number) and gives it to the loaduser function
+    // console.log(userId);
+    loaduser(userId);
+    // return userId;
+};
 
 
 function loaduser(userId){
@@ -69,120 +124,57 @@ function loaduser(userId){
     var apiRequest= "https://api.instagram.com/v1/users/" + user + "/media/recent?access_token=" + accesstoken + "&callback=fillRecentArray";
     var apiscript=document.createElement('script');
     apiscript.setAttribute('src', apiRequest);
-    document.body.appendChild(apiscript);
-  }//end if empty
+    document.body.appendChild(apiscript); //creates script element for each user which gets data and returns it to the fill RecentArray fucntion
+  };//end if empty
 };//end load
 
-
-function callbackFunction(dataReturned){
-  var data=dataReturned;
-  //console.log(dataReturned.data);
-  for (var i=0;i<data.length;i++){
-
-    var content = data[i];
-    var timestamp = content.caption.created_time;
-    console.log(timestamp);
-
-    var div = document.createElement('div');
-    var title=document.createElement('p');
-    var date=document.createElement('p');
-    var image=document.createElement('img');
-
-    title.innerHTML=content.caption.text;
-    date.innerHTML=timestamp;
-
-    image.setAttribute('src', content.images.standard_resolution.url);
-    image.setAttribute('alt', content.caption.text);
-
-    div.appendChild(title);
-    div.appendChild(image);
-    div.appendChild(date);
-
-    usersImageArray.append
-    document.getElementById("hashtags").appendChild(div);////////// HEREREERERERERERE
-  };
-};
-
-
-function loadUserArray(){
-var usersarray = ['jack.rans','taylorswift','kimkardashian','zooeydeschanel','jackpandas'];
-
-  for (var j = 0; j< usersarray.length;j++){
-        var userEncoded = encodeURIComponent( usersarray[j] );
-        var apiRequest= "https://api.instagram.com/v1/users/search?q=" + '"' + userEncoded + '"' + "&access_token=" + accesstoken + "&callback=callbackGetUser";
-      // console.log(apiRequest);
-        var apiscript=document.createElement('script');
-        apiscript.setAttribute('src', apiRequest);
-        document.body.appendChild(apiscript);
-  }
-    console.log(usersImageArray);
-};//end load
-
-
-function loadUserId(){
-  var user = document.getElementById('user1').value;
-  var userEncoded = encodeURIComponent(user);
-  // var section='hashtags';
-  if (user){//checking to see if empty
-    var apiRequest= "https://api.instagram.com/v1/users/search?q=" + '"' + userEncoded + '"' + "&access_token=" + accesstoken + "&callback=fillRecentArray";
-      //console.log(apiRequest);
-    var apiscript=document.createElement('script');
-    apiscript.setAttribute('src', apiRequest);
-    document.body.appendChild(apiscript);
-  }//end if empty
-
-};//end load
-
-function callbackGetUser (dataReturned){
-  var data=dataReturned.data;
-    // console.log(dataReturned.data);
-  var userId = data[0].id;
-    // console.log(userId);
-    loaduser(userId);
-    // return userId;
-
-}
-
-
+var usersImageArray = []; // Will hold all recent photos from all users
 
 //This function fills the usersImageArray with recent media
 function fillRecentArray(recentMediaData) {
     var data = recentMediaData.data;
     for (var k=0; k<data.length;k++) {
         var content = data[k];
-        usersImageArray.push(content);
-    }
+        usersImageArray.push(content); //loops through the users images (max 20)
+    };
     //console.log(usersImageArray);
+};
 
-}
-//This function parseInts every timestamp in the array (failed)
-//function timeStampParse(array) {
-//    var that = [];
-//    for (var p = 0; p < array.length;p++){
-//        var time = parseInt(array[p].created_time);
-//        that[p].created_time = time;
-//    } return that
-//    
-//}
+  ///sorted in code below
 
 
-//This function sorts the usersImageArray by timestamp of individual pictures
-//function sortArray(array) {
-//    var len = array.length,
-//        value,
-//        i,
-//        j;
-//    for (i=0; i < len; i++) {
-//        value = parseInt(array[i].created_time);
-//        for (j=i-1; j > -1 && array[j] > value; j--) {
-//            parseInt(array[j+1]).created_time = parseInt(array[j].created_time);
-//   }
-//       parseInt(array[j+1]).created_time = value;
-//    
-//         
-//        }
-//        return array;
-//}
+
+// this needs to be called!
+function displayinitalusers(usersImageArray) {
+
+  var arrayByTime=sortByTime(usersImageArray);
+  for (var i=0;i<arrayByTime.length;i++){
+  var imageobj = arrayByTime[i];
+  var timestamp = imageobj.caption.created_time;
+
+  var div = document.createElement('div');
+  var title=document.createElement('p');
+  var date=document.createElement('p');
+  var image=document.createElement('img');
+
+  title.innerHTML=imageobj.caption.text;
+  date.innerHTML=timestamp;
+
+  image.setAttribute('src', imageobj.images.standard_resolution.url);
+  image.setAttribute('alt', imageobj.caption.text);
+
+  div.appendChild(title);
+  div.appendChild(image);
+  div.appendChild(date);
+
+  document.getElementById("users").appendChild(div);////////// HEREREERERERERERE
+  };
+};
+//!
+
+
+
+/////sorting process
 
 
 function pivotSort (array){ //quicksort of array in highlest to lowest
@@ -209,15 +201,14 @@ function pivotSort (array){ //quicksort of array in highlest to lowest
     };
 };
 
+//
 
-
-
-
-function sortbytime (array){
+function sortByTime(array){
     var n= array.length; //number of objects in array
     var sortArray=[];
     for (var i=0;i<n;i++){
-        sortArray[i]=[array[i],parseInt(array[i].created_time)];
+        var timestamp = parseInt(array[i].created_time);
+        sortArray[i]=[array[i], (timestamp==null) ? 1 : timestamp];
     };
     var preresult=pivotSort(sortArray);
     var result =[];
@@ -225,46 +216,4 @@ function sortbytime (array){
         result[k]=preresult[k][0];
     };
     return result;
-    
-
-    
 };
-    
-    
-    
-
-
-
-
-
-//function insertionSort(items) {
-//
-//    var len     = items.length,     // number of items in the array
-//        value,                      // the value currently being compared
-//        i,                          // index into unsorted section
-//        j;                          // index into sorted section
-//    
-//    for (i=0; i < len; i++) {
-//    
-//        // store the current value because it may shift later
-//        value = items[i];
-//        
-//        /*
-//         * Whenever the value in the sorted section is greater than the value
-//         * in the unsorted section, shift all items in the sorted section over
-//         * by one. This creates space in which to insert the value.
-//         */
-//        for (j=i-1; j > -1 && items[j] > value; j--) {
-//            items[j+1] = items[j];
-//        }
-//
-//        items[j+1] = value;
-//    }
-//    
-//    return items;
-//}
-//
-////console.log(parseInt(usersImageArray[0].created_time))
-//
-
-
