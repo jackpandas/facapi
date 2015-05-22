@@ -3,12 +3,6 @@
 FAC5 Week 2 API challenge
 Repo for the blog:
 
-Branches:
-- mac (Jack M)
-- rans (Jack R)
-- abdi (Abdi)
-- lukas (Lukars)
-
 ###Project Pitch
 
 Ever wanted to keep track of your favourite TMZ celebrities, but you were too embarassed to add them on Instagram? Now you can, and even if your friends nick your phone: they'll be none the wiser.
@@ -21,21 +15,19 @@ We are designing a proof of concept page to demonstrate the capability to use th
 
 Managed using pivotal tracker. The front end designer (Jack Rans) is designing the pages with testing, translated and optimised by devops (Jack M) using jade/harp to compile. Lukas (Architect) and Abdi (API) are working together to design the requirements for the API and test its functionality.
 
-###API Functions
+###Core Function Description
 
-This project calls upon the Instagram API on a local host, with a three step progression to a functional tool.
+Users:
 
-####Version 1
+The function loadUserArray() takes a client-provided array of public Instagram usernames (@****), and gets the numeric User_ID for each from Instagram. It then uses another function loaduser() to query the Instagram API with the numeric User_IDs to return the most recent images for each queried user and push it into the usersImageArray[]. The page then uses sortByTime() that implements a pivot sort - pivotSort() - to sort the Instagram photos by timestamp (serving newest first). Using the function displayinitialusers, the script then pushes the individual objects to the page, appending them to the page with div classes that allow for formatting with CSS.
 
-The project uses javascript to call the Instagram API using an access key. This version is considered complete when it is possible to call the Instagram API using hashtags and usernames in order to deliver data to the local domain.
+Hashtags:
 
-####Version 2
+This functions much the same as the user function, but searches by tag instead.
 
-Using the basic API functionality, the project will use javascript to call the Instagram API using an array of input values (usernames or hashtags). The data returned from these API calls will be stored in a staging array, ordered by ID number. The individual photos will then be sorted by timestamp, providing the newest photo first, and then pushed into the domain as a single API call.
+###Stretch Function Description
 
-####Version 3
-
-The third iteration of the application adds the function to update the page, either by calling the API again for newer photos (REFRESH) or to seek older photos from the stream (MORE). In the REFRESH function, the API will be called (using the version 2 mode) and the new data will be compared to the existing data, at the staging array point, with any duplicate data being discarded. The new data will then be added to the domain above the existing data. In the MORE function, the version 2 API will be called using the NEXT URI function from the data in the array. 
+Taking input via forms on the page.
 
 ###Project Files
 
