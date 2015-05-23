@@ -5,13 +5,17 @@ document.onscroll=function(){
   var scrolledcurrent = window.pageYOffset;
   // console.log(scrollpos);
   // console.log(scrolledcurrent);
-  if(scrolledcurrent>(scrollpos-550)){
-  displayinitialusers(usersImageArray);
-};
+  if(scrolledcurrent>(scrollpos-800)){
+    displayinitialusers(usersImageArray);
+  };
 
 };
 
-
+function moretag(apicall){
+  var apiscript=document.createElement('script');
+  apiscript.setAttribute('src', apicall);
+  document.body.appendChild(apiscript);
+};
 
 
 function buttonpress(open,hide1,hide2,openbutton,hidebutton1,hidebutton2) {
@@ -29,9 +33,6 @@ function buttonpress(open,hide1,hide2,openbutton,hidebutton1,hidebutton2) {
     notSelected1.style.backgroundColor="white";
     var notSelected2=document.getElementById(hidebutton2);
     notSelected2.style.backgroundColor="white";
-
-
-
 
 };
 
@@ -58,10 +59,7 @@ aButton.addEventListener("click", function(){
 
 
 
-
-
-
-var flag=false;
+var nexttagpage='';
 
 function loadtag(){
   var tag = document.getElementById('hashtag1').value;
@@ -73,8 +71,6 @@ function loadtag(){
     var apiscript=document.createElement('script');
     apiscript.setAttribute('src', apiRequest);
     document.body.appendChild(apiscript);
-
-    console.log(apiscript);
   };//end if empty
 
 };//end load
@@ -83,29 +79,36 @@ function loadtag(){
 
 
 function callbackFunction(dataReturned){
-  if (flag){var data=dataReturned.data;  flag=false;} //tags
-  else {var data=dataReturned}; //users
+  var data=dataReturned.data; //tags
+  nexttagpage = dataReturned.pagination.next_url;
+  console.log(nexttagpage);
+  //users
   //console.log(dataReturned.data);
   for (var i=0;i<data.length;i++){
 
     var content = data[i];
-    var timestamp = content.caption.created_time;
-    console.log(timestamp);
+
 
     var div = document.createElement('div');
     var title=document.createElement('p');
-    var date=document.createElement('p');
+    var author=document.createElement('p');
     var image=document.createElement('img');
 
     title.innerHTML=content.caption.text;
-    date.innerHTML=timestamp;
+    author.innerHTML=content.user.username;
 
     image.setAttribute('src', content.images.standard_resolution.url);
     image.setAttribute('alt', content.caption.text);
 
-    div.appendChild(title);
+    author.setAttribute('class','author');
+    image.setAttribute('class','image');
+    title.setAttribute('class','title');
+
+
+
+    div.appendChild(author);
     div.appendChild(image);
-    div.appendChild(date);
+    div.appendChild(title);
 
     document.getElementById("imagecontainer").appendChild(div);////////// HEREREERERERERERE
   };
@@ -114,10 +117,18 @@ function callbackFunction(dataReturned){
 
 
 
-var usersarray = ['jack.rans','taylorswift','mileycyrus','jackpandas','schwarzengger','ladygaga','privatekanye','peteburnsicon','denniskeithrodman','mariahcary','parishilton','joeyessex90'];  //currently hardcoded
+// var usersarray = ['jack.rans','taylorswift','mileycyrus','jackpandas','schwarzengger','ladygaga','privatekanye','peteburnsicon','denniskeithrodman','mariahcary','parishilton','joeyessex90'];  //currently hardcoded
+
+
+var numberuser=0;
 
 function loadUserArray(){
-  for (var j = 0; j< usersarray.length;j++){
+  var list = document.getElementById('user1').value;
+  document.getElementById("user-content").innerHTML='';
+  k=0;
+  var usersarray = list.split(',');
+  numberuser=usersarray.length;
+  for (var j = 0; j<numberuser;j++){
         var userEncoded = encodeURIComponent( usersarray[j] ); //may not be necessary, This is to ensure no errors on unknown characters in users names
         var apiRequest= "https://api.instagram.com/v1/users/search?q=" + '"' + userEncoded + '"' + "&access_token=" + accesstoken + "&callback=callbackGetUser"; //sends api request of this user to seek out the user id as a number
       // console.log(apiRequest);
@@ -125,6 +136,7 @@ function loadUserArray(){
         apiscript.setAttribute('src', apiRequest);
         document.body.appendChild(apiscript); //appends to script to get info send to the callbackGetUser function
   }
+
 };//end load
 
 
@@ -160,7 +172,7 @@ function fillRecentArray(recentMediaData) {
     for (var k=0; k<data.length;k++) {
         var content = data[k];
         usersImageArray.push(content);
-        if (k==data.length-1 && userscalled==usersarray.length){displayinitialusers(usersImageArray)};
+        if (k==data.length-1 && userscalled==numberuser){displayinitialusers(usersImageArray)};
          //loops through the users images (max 20)
     };
     //console.log(usersImageArray);
@@ -213,7 +225,7 @@ function displayinitialusers(usersImageArray) {
   div.appendChild(image);
   div.appendChild(title);
 
-  document.getElementById("users").appendChild(div);////////// HEREREERERERERERE
+  document.getElementById("user-content").appendChild(div);////////// HEREREERERERERERE
   };
   k+=20;
 };
@@ -255,7 +267,7 @@ function sortByTime(array){
     var sortArray=[];
     for (var i=0;i<n;i++){
         if (array[i].created_time==null){array[i].created_time=1};
-        sortArray[i]=[array[i], parseInt(array[i].created_time)];
+        sortArray[i]=[array[i], parseInt(array[i].created_time),10];
     };
     var preresult=pivotSort(sortArray);
     var result =[];
